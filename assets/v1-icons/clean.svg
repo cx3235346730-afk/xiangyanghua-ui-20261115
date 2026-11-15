@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bottle" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b6eaff"/><stop offset=".5" stop-color="#62b8ee"/><stop offset="1" stop-color="#2b85d4"/></linearGradient>
+    <linearGradient id="label" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e0f3fc"/></linearGradient>
+  </defs>
+  <ellipse cx="31" cy="55" rx="18" ry="3.6" fill="#7297aa" opacity=".14"/>
+  <path d="M24 15h17l4 7v25c0 3.1-2.1 5-5.1 5H21.1c-3 0-5.1-1.9-5.1-5V22Z" fill="url(#bottle)" stroke="#3b91d3" stroke-width="1.1"/>
+  <path d="M24 12h17v5H24z" fill="#50a9e2"/><path d="M26 8h12v5H26z" fill="#2f78c3"/><path d="M26.5 8h10" stroke="#7ec8ef" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M19 25c5.4-2.4 17.6-2.4 23 0v15c-5.4 2.4-17.6 2.4-23 0Z" fill="url(#label)"/>
+  <path d="M30.5 25.8c-3.2 4.2-5.4 6.8-5.4 9.5a5.4 5.4 0 0 0 10.8 0c0-2.7-2.2-5.3-5.4-9.5Z" fill="#5bb5e6"/><path d="M28 35.5c0-1 .3-1.8.8-2.5" fill="none" stroke="#d8f5ff" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M20 20v22" stroke="#e7f8ff" stroke-width="1.7" stroke-linecap="round" opacity=".75"/>
+  <circle cx="49" cy="16" r="4" fill="#d9f4ff" stroke="#a8ddf2" stroke-width="1"/><circle cx="12" cy="19" r="3" fill="#e8faff" stroke="#b8e6f5" stroke-width=".8"/><path d="M48.6 13.6v4.8m-2.4-2.4H51" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/>
+</svg>
