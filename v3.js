@@ -44,8 +44,9 @@
     box:'<path d="M3 8.5 12 4l9 4.5v10L12 23l-9-4.5z"/><path d="m3 8.5 9 4.5 9-4.5M12 13v10M7.5 6.3l9 4.5"/>',
   };
   function icon(name, extra='') { return `<svg class="icon ${extra}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`; }
-  function productPhoto(product) {
-    return `<img class="product-photo" src="./assets/products/${esc(product.image)}" width="1024" height="1024" alt="${esc(product.name)}" decoding="async">`;
+  function productPhoto(product, width = 480) {
+    const loading = width === 1024 ? 'eager' : 'lazy';
+    return `<img class="product-photo" src="./assets/mobile/${width}/${esc(product.image)}" width="${width}" height="${width}" alt="${esc(product.name)}" loading="${loading}" decoding="async">`;
   }
   function sprite(image, cls='') {
     const [file,x,y,w,h] = image;
@@ -64,7 +65,7 @@
   }
   function showcaseCard(title, tag, ids) {
     const items = ids.map(id=>products.find(p=>p.id===id)).filter(Boolean);
-    return `<article class="showcase-card"><div class="showcase-heading"><h3>${esc(title)}</h3><span>${esc(tag)}</span></div><div class="showcase-products">${items.map(p=>`<button class="showcase-product" type="button" data-action="product" data-id="${p.id}" aria-label="查看${esc(p.name)}"><span class="showcase-photo">${productPhoto(p)}</span><span class="showcase-price">¥<strong>${esc(p.price)}</strong></span></button>`).join('')}</div></article>`;
+    return `<article class="showcase-card"><div class="showcase-heading"><h3>${esc(title)}</h3><span>${esc(tag)}</span></div><div class="showcase-products">${items.map(p=>`<button class="showcase-product" type="button" data-action="product" data-id="${p.id}" aria-label="查看${esc(p.name)}"><span class="showcase-photo">${productPhoto(p, 192)}</span><span class="showcase-price">¥<strong>${esc(p.price)}</strong></span></button>`).join('')}</div></article>`;
   }
   function statusBar() {
     return `<div class="status-bar"><span>9:41</span><span class="status-icons" aria-hidden="true"><svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4" y="6" width="3" height="6" rx="1"/><rect x="8" y="3" width="3" height="9" rx="1"/><rect x="12" y="1" width="3" height="11" rx="1"/></svg><svg width="15" height="12" viewBox="0 0 15 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 4c3.5-3.5 9.5-3.5 13 0M3.5 6.5c2-2 6-2 8 0M6 9c.8-.8 2.2-.8 3 0"/></svg><svg width="23" height="12" viewBox="0 0 23 12" fill="none" stroke="currentColor"><rect x=".5" y="1" width="19" height="10" rx="3"/><rect x="2.5" y="3" width="14" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M21 4v4" stroke-width="2"/></svg></span></div>`;
@@ -85,7 +86,7 @@
   }
   function shelfRow(title, tag, ids, category) {
     const items=ids.map(id=>products.find(p=>p.id===id)).filter(Boolean);
-    return `<section class="pdd-shelf" aria-label="${esc(title)}"><button class="pdd-shelf-label" type="button" data-action="category" data-id="${esc(category)}"><span class="pdd-shelf-art">${categoryIllustration(category)}</span><strong>${esc(title)}</strong><small>${esc(tag)}</small></button><div class="pdd-shelf-products">${items.map(p=>`<button class="pdd-shelf-product" type="button" data-action="product" data-id="${p.id}" aria-label="查看${esc(p.name)}"><span class="pdd-shelf-photo">${productPhoto(p)}</span><span class="pdd-shelf-price">¥<b>${esc(p.price)}</b></span></button>`).join('')}</div></section>`;
+    return `<section class="pdd-shelf" aria-label="${esc(title)}"><button class="pdd-shelf-label" type="button" data-action="category" data-id="${esc(category)}"><span class="pdd-shelf-art">${categoryIllustration(category)}</span><strong>${esc(title)}</strong><small>${esc(tag)}</small></button><div class="pdd-shelf-products">${items.map(p=>`<button class="pdd-shelf-product" type="button" data-action="product" data-id="${p.id}" aria-label="查看${esc(p.name)}"><span class="pdd-shelf-photo">${productPhoto(p, 192)}</span><span class="pdd-shelf-price">¥<b>${esc(p.price)}</b></span></button>`).join('')}</div></section>`;
   }
   function renderHome() {
     const shortcutIds = ['meat','food','clean','pet'];
@@ -109,11 +110,11 @@
   }
   function renderDetail() {
     const p = products.find(item=>item.id===state.product) || products[0];
-    return `${pageHeader('商品详情',true)}<div class="detail-content"><div class="detail-image">${productPhoto(p)}</div><section class="detail-panel"><h1>${esc(p.name)}</h1><p class="detail-description">${esc(p.sub)}。商品价格与库存为参考，具体信息由群主确认。</p><div class="detail-price price"><span class="currency">¥</span><span class="amount">${esc(p.price)}</span></div><div class="detail-stats"><span>库存：${esc(p.stock)}</span><span>已售 0</span></div></section><section class="detail-panel"><h1 style="font-size:16px">商品详情</h1><p class="detail-description">${esc(p.sub)}。选好商品后可加入购物车，与群主确认收款和发货信息。</p></section></div>`;
+    return `${pageHeader('商品详情',true)}<div class="detail-content"><div class="detail-image">${productPhoto(p, 1024)}</div><section class="detail-panel"><h1>${esc(p.name)}</h1><p class="detail-description">${esc(p.sub)}。商品价格与库存为参考，具体信息由群主确认。</p><div class="detail-price price"><span class="currency">¥</span><span class="amount">${esc(p.price)}</span></div><div class="detail-stats"><span>库存：${esc(p.stock)}</span><span>已售 0</span></div></section><section class="detail-panel"><h1 style="font-size:16px">商品详情</h1><p class="detail-description">${esc(p.sub)}。选好商品后可加入购物车，与群主确认收款和发货信息。</p></section></div>`;
   }
   function renderReport() {
     const selected = state.report.map(id=>products.find(p=>p.id===id)).filter(Boolean);
-    const content = selected.length ? `<div class="report-card">${selected.map(p=>`<div class="report-item"><div class="product-image">${productPhoto(p)}</div><div><p class="report-name">${esc(p.name)}</p><span class="report-price">¥${esc(p.price)}</span></div><button class="remove-button" type="button" data-action="remove" data-id="${p.id}">移除</button></div>`).join('')}</div><div class="info-strip"><div><strong>商品信息仅供参考</strong><span>请与群主确认收款和发货</span></div><button type="button" data-action="guide">下单说明 ›</button></div>` : `<div class="report-card empty-report"><div class="empty-icon">${icon('cart')}</div><h2>购物车还是空的</h2><p>去分类页挑选商品，点「加入购物车」</p><button class="wide-button" type="button" data-action="category" data-id="food">去选购</button></div>`;
+    const content = selected.length ? `<div class="report-card">${selected.map(p=>`<div class="report-item"><div class="product-image">${productPhoto(p, 192)}</div><div><p class="report-name">${esc(p.name)}</p><span class="report-price">¥${esc(p.price)}</span></div><button class="remove-button" type="button" data-action="remove" data-id="${p.id}">移除</button></div>`).join('')}</div><div class="info-strip"><div><strong>商品信息仅供参考</strong><span>请与群主确认收款和发货</span></div><button type="button" data-action="guide">下单说明 ›</button></div>` : `<div class="report-card empty-report"><div class="empty-icon">${icon('cart')}</div><h2>购物车还是空的</h2><p>去分类页挑选商品，点「加入购物车」</p><button class="wide-button" type="button" data-action="category" data-id="food">去选购</button></div>`;
     return `${pageHeader('购物车')}<div class="page-content">${content}</div>`;
   }
   function renderMy() {

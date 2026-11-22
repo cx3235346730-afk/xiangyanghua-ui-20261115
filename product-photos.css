@@ -5,3 +5,4 @@
   object-fit: contain;
   background: #fff;
 }
+.product-photo[data-src] { visibility: hidden; }

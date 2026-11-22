@@ -24,12 +24,20 @@
     {id:'p3', category:'pet', name:'智能宠物饮水机', sub:'无线不锈钢 · 宠物用品', price:'43.00', badge:'新品', stock:'参考库存', image:'pet-water-fountain-studio.jpg'},
   ];
   const banners = [
-    {image:'v1-warm-hero.png', title:['把日子过成','喜欢的样子'], subtitle:'精选生活好物', category:'food', button:'探索好物'},
-    {image:'v1-banner-meat.png', title:['一日三餐','认真对待'], subtitle:'鲜肉专区 · 用心挑选', category:'meat', button:'探索鲜肉'},
-    {image:'v1-banner-home.png', title:['日常好物','慢慢挑选'], subtitle:'家居百货 · 温柔日常', category:'home', button:'探索家居'},
+    {image:'v1-warm-hero.jpg', title:['把日子过成','喜欢的样子'], subtitle:'精选生活好物', category:'food', button:'探索好物'},
+    {image:'v1-banner-meat.jpg', title:['一日三餐','认真对待'], subtitle:'鲜肉专区 · 用心挑选', category:'meat', button:'探索鲜肉'},
+    {image:'v1-banner-home.jpg', title:['日常好物','慢慢挑选'], subtitle:'家居百货 · 温柔日常', category:'home', button:'探索家居'},
   ];
   const state = {route:'home', category:'food', query:'', product:null, previous:'home', report:[], homeFilter:'all', favorites:[], heroSlide:0};
   const screen = document.getElementById('screen');
+  const photoObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    for (const {target, isIntersecting} of entries) {
+      if (!isIntersecting || !target.isConnected) continue;
+      target.src = target.dataset.src;
+      target.removeAttribute('data-src');
+      photoObserver.unobserve(target);
+    }
+  }, {root: screen, rootMargin: '180px 0px'}) : null;
   const nav = document.getElementById('bottom-nav');
   const toast = document.getElementById('toast');
   let toastTimer;
@@ -52,8 +60,10 @@
     box:'<path d="M3 8.5 12 4l9 4.5v10L12 23l-9-4.5z"/><path d="m3 8.5 9 4.5 9-4.5M12 13v10M7.5 6.3l9 4.5"/>',
   };
   function icon(name, extra='') { return `<svg class="icon ${extra}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`; }
-  function productPhoto(product) {
-    return `<img class="product-photo" src="./assets/products/${esc(product.image)}" width="1024" height="1024" alt="${esc(product.name)}" decoding="async">`;
+  function productPhoto(product, width = 480, defer = false) {
+    const loading = width === 1024 ? 'eager' : 'lazy';
+    const source = defer && photoObserver ? 'data-src' : 'src';
+    return `<img class="product-photo" ${source}="./assets/mobile/${width}/${esc(product.image)}" width="${width}" height="${width}" alt="${esc(product.name)}" loading="${loading}" decoding="async">`;
   }
   function shopIcon(name) {
     const drawings = {
@@ -84,14 +94,14 @@
   function productCard(product) {
     return `<article class="product-card"><button class="product-open" type="button" data-action="product" data-id="${product.id}" aria-label="查看${esc(product.name)}"><div class="product-image">${productPhoto(product)}</div><div class="product-body"><span class="product-name">${esc(product.name)}</span><span class="product-sub">${esc(product.sub)}</span></div></button><div class="product-bottom"><span class="price"><span class="currency">¥</span><span class="amount">${esc(product.price)}</span></span><button class="add-button" type="button" data-action="add" data-id="${product.id}" aria-label="将${esc(product.name)}加入购物车">+</button></div></article>`;
   }
-  function warmCard(product) {
+  function warmCard(product, index) {
     const { id, name, sub, price, homeLabel } = product;
     const favorite = state.favorites.includes(id);
     const isHot = homeLabel === '热销好物';
     const safeName = esc(name);
     return `<article class="warm-card">
       <button type="button" class="warm-card-open" data-action="product" data-id="${id}" aria-label="查看${safeName}">
-        <span class="warm-card-image">${productPhoto(product)}</span>
+        <span class="warm-card-image">${productPhoto(product, 480, index >= 2)}</span>
         <span class="warm-card-copy">
           <span class="warm-card-title">${safeName}</span>
           <span class="warm-card-sub">${esc(sub)}</span>
@@ -110,9 +120,9 @@
     const order = ['h1','p2','m1','f1','m2','f2','p1','f3','m3','p3'];
     const arranged = order.map(id=>products.find(product=>product.id===id)).filter(Boolean);
     const shown = state.homeFilter === 'all' ? arranged : arranged.filter(product=>product.category===state.homeFilter);
-    return `<header class="home-header warm-header">${statusBar()}<div class="warm-topbar"><div class="warm-identity"><img class="warm-avatar" src="./assets/v1-warm-avatar.png" alt=""><div><div class="warm-shop-name"><span>向阳花</span><span class="warm-shop-accent">随心选</span><span class="warm-shop-badge"><svg viewBox="0 0 20 16" aria-hidden="true"><path d="M2.1 5.1 5.3 7.4 10 1.8l4.7 5.6 3.2-2.3-1.4 8.5H3.5Z"/></svg><span>优选小铺</span></span></div><div class="warm-shop-sub">用心挑选，分享日常</div></div></div><div class="warm-header-actions"><button type="button" data-action="search" aria-label="搜索商品">${icon('search')}</button><button class="warm-header-bag" type="button" data-action="report" aria-label="购物车">${icon('bag')}${state.report.length?`<span>${state.report.length}</span>`:''}</button></div></div></header>
+    return `<header class="home-header warm-header">${statusBar()}<div class="warm-topbar"><div class="warm-identity"><img class="warm-avatar" src="./assets/mobile/v1-warm-avatar.jpg" alt=""><div><div class="warm-shop-name"><span>向阳花</span><span class="warm-shop-accent">随心选</span><span class="warm-shop-badge"><svg viewBox="0 0 20 16" aria-hidden="true"><path d="M2.1 5.1 5.3 7.4 10 1.8l4.7 5.6 3.2-2.3-1.4 8.5H3.5Z"/></svg><span>优选小铺</span></span></div><div class="warm-shop-sub">用心挑选，分享日常</div></div></div><div class="warm-header-actions"><button type="button" data-action="search" aria-label="搜索商品">${icon('search')}</button><button class="warm-header-bag" type="button" data-action="report" aria-label="购物车">${icon('bag')}${state.report.length?`<span>${state.report.length}</span>`:''}</button></div></div></header>
       <div class="home-body warm-body"><section class="warm-hero" aria-label="首页海报轮播" aria-roledescription="轮播">
-      ${banners.map((banner,index)=>`<div class="warm-slide" role="group" aria-roledescription="海报" aria-label="${index+1} / ${banners.length}" ${index===state.heroSlide?'':'hidden'}><img src="./assets/${banner.image}" alt="" class="warm-hero-image"><div class="warm-hero-copy"><h1>${banner.title.map(esc).join('<br>')}</h1><p>${esc(banner.subtitle)}</p><button type="button" data-action="category" data-id="${banner.category}">${esc(banner.button)}</button></div></div>`).join('')}
+      ${banners.map((banner,index)=>`<div class="warm-slide" role="group" aria-roledescription="海报" aria-label="${index+1} / ${banners.length}" ${index===state.heroSlide?'':'hidden'}><img ${index===state.heroSlide?'src':'data-src'}="./assets/mobile/${banner.image}" ${index===state.heroSlide?'fetchpriority="high"':''} alt="" class="warm-hero-image"><div class="warm-hero-copy"><h1>${banner.title.map(esc).join('<br>')}</h1><p>${esc(banner.subtitle)}</p><button type="button" data-action="category" data-id="${banner.category}">${esc(banner.button)}</button></div></div>`).join('')}
       <div class="warm-carousel-dots" role="group" aria-label="切换海报">${banners.map((banner,index)=>`<button type="button" class="warm-carousel-dot ${index===state.heroSlide?'is-active':''}" data-action="hero-slide" data-index="${index}" aria-label="第 ${index+1} 张海报：${esc(banner.title.join('，'))}" aria-current="${index===state.heroSlide}"></button>`).join('')}</div></section>
       <div class="warm-filters" aria-label="筛选商品">${filters.map(item=>`<button type="button" class="warm-filter ${item.id===state.homeFilter?'is-active':''}" data-action="home-filter" data-id="${item.id}" aria-pressed="${item.id===state.homeFilter}">${esc(item.label)}</button>`).join('')}</div>
       <section class="warm-selection" aria-label="店主精选"><div class="warm-section-heading"><h2>店主精选</h2><button type="button" data-action="category" data-id="food">查看全部 <span aria-hidden="true">→</span></button></div><div class="warm-grid">${shown.map(warmCard).join('')}</div></section>
@@ -130,15 +140,15 @@
   }
   function renderDetail() {
     const p = products.find(item=>item.id===state.product) || products[0];
-    return `${pageHeader('商品详情',true)}<div class="detail-content"><div class="detail-image">${productPhoto(p)}</div><section class="detail-panel"><h1>${esc(p.name)}</h1><p class="detail-description">${esc(p.sub)}</p><div class="detail-price price"><span class="currency">¥</span><span class="amount">${esc(p.price)}</span></div><div class="detail-stats"><span>商品信息与价格仅供参考</span></div></section><section class="detail-panel"><h1 style="font-size:16px">商品详情</h1><p class="detail-description">${esc(p.sub)}。把喜欢的好物加入购物车，慢慢挑选。</p></section></div>`;
+    return `${pageHeader('商品详情',true)}<div class="detail-content"><div class="detail-image">${productPhoto(p, 1024)}</div><section class="detail-panel"><h1>${esc(p.name)}</h1><p class="detail-description">${esc(p.sub)}</p><div class="detail-price price"><span class="currency">¥</span><span class="amount">${esc(p.price)}</span></div><div class="detail-stats"><span>商品信息与价格仅供参考</span></div></section><section class="detail-panel"><h1 style="font-size:16px">商品详情</h1><p class="detail-description">${esc(p.sub)}。把喜欢的好物加入购物车，慢慢挑选。</p></section></div>`;
   }
   function renderReport() {
     const selected = state.report.map(id=>products.find(p=>p.id===id)).filter(Boolean);
-    const content = selected.length ? `<div class="report-card">${selected.map(p=>`<div class="report-item"><div class="product-image">${productPhoto(p)}</div><div><p class="report-name">${esc(p.name)}</p><span class="report-price">¥${esc(p.price)}</span></div><button class="remove-button" type="button" data-action="remove" data-id="${p.id}">移除</button></div>`).join('')}</div><div class="info-strip"><div><strong>喜欢的好物，都在这里</strong><span>商品信息与价格仅供参考</span></div><button type="button" data-action="guide">了解小店</button></div>` : `<div class="report-card empty-report"><div class="empty-icon">${icon('cart')}</div><h2>购物车还是空的</h2><p>去小店挑选一些喜欢的好物吧</p><button class="wide-button" type="button" data-action="category" data-id="food">去逛逛</button></div>`;
+    const content = selected.length ? `<div class="report-card">${selected.map(p=>`<div class="report-item"><div class="product-image">${productPhoto(p, 192)}</div><div><p class="report-name">${esc(p.name)}</p><span class="report-price">¥${esc(p.price)}</span></div><button class="remove-button" type="button" data-action="remove" data-id="${p.id}">移除</button></div>`).join('')}</div><div class="info-strip"><div><strong>喜欢的好物，都在这里</strong><span>商品信息与价格仅供参考</span></div><button type="button" data-action="guide">了解小店</button></div>` : `<div class="report-card empty-report"><div class="empty-icon">${icon('cart')}</div><h2>购物车还是空的</h2><p>去小店挑选一些喜欢的好物吧</p><button class="wide-button" type="button" data-action="category" data-id="food">去逛逛</button></div>`;
     return `${pageHeader('购物车')}<div class="page-content">${content}</div>`;
   }
   function renderMy() {
-    return `${pageHeader('我的')}<div class="page-content"><section class="profile-card"><div class="profile-banner"><img src="./assets/v1-warm-hero.png" alt=""><div class="profile-overlay"><strong>向阳花小店</strong><span>为平常日子，挑选一点喜欢</span></div></div><div class="profile-actions"><button class="wide-button" type="button" data-action="demo">登录 / 注册</button><p class="profile-hint">欢迎来到向阳花随心选</p></div></section><div class="profile-links"><button type="button" data-action="demo"><span>我的订单</span><span>›</span></button><button type="button" data-action="guide"><span>关于小店</span><span>›</span></button></div></div>`;
+    return `${pageHeader('我的')}<div class="page-content"><section class="profile-card"><div class="profile-banner"><img src="./assets/mobile/v1-warm-hero.jpg" alt=""><div class="profile-overlay"><strong>向阳花小店</strong><span>为平常日子，挑选一点喜欢</span></div></div><div class="profile-actions"><button class="wide-button" type="button" data-action="demo">登录 / 注册</button><p class="profile-hint">欢迎来到向阳花随心选</p></div></section><div class="profile-links"><button type="button" data-action="demo"><span>我的订单</span><span>›</span></button><button type="button" data-action="guide"><span>关于小店</span><span>›</span></button></div></div>`;
   }
   function renderGuide() {
     return `${pageHeader('关于小店',true)}<div class="page-content"><section class="guide-card"><span class="shop-eyebrow">A LITTLE SHOP FOR EVERYDAY</span><h2 class="guide-title">你好，欢迎来到向阳花</h2><p>这是一家分享日常好物的小店。我们喜欢用心挑选，也喜欢把生活里的小小欢喜分享给你。</p><p>慢慢逛，找到适合自己的那一点喜欢。</p></section></div>`;
@@ -160,17 +170,33 @@
     screen.innerHTML=(pages[state.route]||renderHome)();
     renderNav();
     if(reset) screen.scrollTop=0;
+    if (photoObserver) {
+      photoObserver.disconnect();
+      screen.querySelectorAll('.product-photo[data-src]').forEach(img => photoObserver.observe(img));
+    }
     if(state.route==='home') startHeroCarousel();
   }
   function showHeroSlide(index) {
-    state.heroSlide=(index+banners.length)%banners.length;
+    const nextIndex=(index+banners.length)%banners.length;
+    state.heroSlide=nextIndex;
     const hero=screen.querySelector('.warm-hero');
     if(!hero) return;
-    hero.querySelectorAll('.warm-slide').forEach((slide,i)=>{ slide.hidden=i!==state.heroSlide; });
-    hero.querySelectorAll('.warm-carousel-dot').forEach((dot,i)=>{
-      dot.classList.toggle('is-active',i===state.heroSlide);
-      dot.setAttribute('aria-current',String(i===state.heroSlide));
-    });
+    const slides=hero.querySelectorAll('.warm-slide');
+    const photo=slides[nextIndex].querySelector('img');
+    function reveal() {
+      if(state.heroSlide!==nextIndex || !hero.isConnected) return;
+      slides.forEach((slide,i)=>{ slide.hidden=i!==nextIndex; });
+      hero.querySelectorAll('.warm-carousel-dot').forEach((dot,i)=>{
+        dot.classList.toggle('is-active',i===nextIndex);
+        dot.setAttribute('aria-current',String(i===nextIndex));
+      });
+    }
+    if(photo.dataset.src) {
+      photo.src=photo.dataset.src;
+      delete photo.dataset.src;
+    }
+    if(photo.complete) reveal();
+    else photo.onload=photo.onerror=reveal;
   }
   function startHeroCarousel() {
     clearInterval(carouselTimer);
