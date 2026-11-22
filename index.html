@@ -3,31 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>向阳花随心选 · 设计对比</title>
-  <style>
-    *{box-sizing:border-box}html,body{height:100%;margin:0}body{display:flex;justify-content:center;background:#e9eaed;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#292a2d}.preview-shell{display:flex;flex-direction:column;width:min(100%,430px);height:100%;height:100dvh;background:#fff;box-shadow:0 0 38px #30282b12}.version-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none;min-height:44px;padding:6px 12px;border-bottom:1px solid #e8e8eb;background:#fff}.version-label{font-size:12px;font-weight:700;color:#77787d;white-space:nowrap}.version-tabs{display:flex;gap:3px;padding:3px;border-radius:9px;background:#f1f4f1}.version-tabs button{min-width:72px;padding:6px 10px;border:0;border-radius:7px;background:transparent;color:#77787d;font:600 12px/1 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;cursor:pointer}.version-tabs button[aria-selected="true"]{background:#fff;color:#355744;box-shadow:0 1px 4px #00000012}.version-tabs button:focus-visible{outline:2px solid #6d8d77;outline-offset:1px}.preview-frame{display:block;flex:1;width:100%;min-height:0;border:0;background:#f5f5f8}.preview-frame[hidden]{display:none}@media(max-width:320px){.version-label{font-size:11px}.version-tabs button{min-width:62px;padding-inline:8px}}
-  </style>
+  <meta name="theme-color" content="#ffffff">
+  <title>向阳花随心选</title>
+  <link rel="preload" as="image" href="./assets/mobile/v1-warm-hero.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="./v1-base.css">
+  <link rel="stylesheet" href="./v1-theme.css">
+  <link rel="stylesheet" href="./v1-store.css?rev=store-1">
+  <link rel="stylesheet" href="./v1-warm.css?rev=plain-icons-1">
+  <link rel="stylesheet" href="./product-photos.css?rev=red-prices-1">
 </head>
 <body>
-  <main class="preview-shell">
-    <div class="version-bar"><span class="version-label">设计方案</span><div class="version-tabs" role="tablist" aria-label="选择设计版本"><button type="button" id="tab-v1" role="tab" aria-selected="true" aria-controls="frame-v1">版本一</button><button type="button" id="tab-v2" role="tab" aria-selected="false" aria-controls="frame-v2">版本二</button><button type="button" id="tab-v3" role="tab" aria-selected="false" aria-controls="frame-v3">版本三</button></div></div>
-    <iframe id="frame-v1" class="preview-frame" src="./v1.html?rev=red-prices-1" title="版本一界面"></iframe>
-    <iframe id="frame-v2" class="preview-frame" data-src="./v2.html?rev=red-prices-1" title="版本二界面" hidden></iframe>
-    <iframe id="frame-v3" class="preview-frame" data-src="./v3.html?rev=red-prices-1" title="版本三界面" hidden></iframe>
+  <main class="phone-shell" aria-label="向阳花随心选界面预览">
+    <div class="screen" id="screen" tabindex="0"></div>
+    <nav class="bottom-nav" id="bottom-nav" aria-label="页面导航"></nav>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </main>
-  <script>
-    const tabs = document.querySelectorAll('.version-tabs button');
-    for (const tab of tabs) {
-      tab.addEventListener('click', () => {
-        for (const item of tabs) {
-          const selected = item === tab;
-          const frame = document.getElementById(item.getAttribute('aria-controls'));
-          if (selected && !frame.hasAttribute('src')) frame.src = frame.dataset.src;
-          item.setAttribute('aria-selected', String(selected));
-          frame.hidden = !selected;
-        }
-      });
-    }
-  </script>
+  <script src="./v1.js?rev=mobile-images-1" defer></script>
 </body>
 </html>
