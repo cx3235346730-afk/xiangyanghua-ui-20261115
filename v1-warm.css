@@ -37,8 +37,6 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-carousel-dot { position: relative; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; }
 .warm-carousel-dot::before { width: 6px; height: 6px; border-radius: 8px; background: #a98f7b; content: ''; box-shadow: 0 0 0 1px #fff8; transition: width .2s ease, background .2s ease; }
 .warm-carousel-dot.is-active::before { width: 15px; background: #74553c; }
-.warm-carousel-toggle { position: absolute; z-index: 2; right: 12px; bottom: 5px; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%; background: #fff9f4b8; color: #74553c; }
-.warm-carousel-toggle svg { width: 14px; height: 14px; }
 @keyframes warm-hero-fade { from { opacity: .65; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .warm-slide { animation: none; } .warm-carousel-dot::before { transition: none; } }
 .warm-filters { display: flex; align-items: center; justify-content: space-between; gap: 3px; padding: 17px 16px 10px; }
@@ -46,7 +44,7 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-filter.is-active { background: #a68666; color: #fff; }
 .warm-selection { padding: 18px 14px 0; }
 .warm-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
-.warm-section-heading h2 { margin: 0; color: #423026; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 22px; font-weight: 700; letter-spacing: .04em; }
+.warm-section-heading h2 { margin: 0; color: #000; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 22px; font-weight: 700; letter-spacing: .04em; }
 .warm-section-heading button { padding: 6px 0; background: transparent; color: #79665a; font-size: 13px; }
 .warm-section-heading button span { padding-left: 3px; font-size: 16px; }
 .warm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px 12px; }
