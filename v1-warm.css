@@ -37,6 +37,8 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-carousel-dot { position: relative; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; }
 .warm-carousel-dot::before { width: 6px; height: 6px; border-radius: 8px; background: #a98f7b; content: ''; box-shadow: 0 0 0 1px #fff8; transition: width .2s ease, background .2s ease; }
 .warm-carousel-dot.is-active::before { width: 15px; background: #74553c; }
+.warm-carousel-toggle { position: absolute; z-index: 2; right: 12px; bottom: 5px; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%; background: #fff9f4b8; color: #74553c; }
+.warm-carousel-toggle svg { width: 14px; height: 14px; }
 @keyframes warm-hero-fade { from { opacity: .65; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .warm-slide { animation: none; } .warm-carousel-dot::before { transition: none; } }
 .warm-filters { display: flex; align-items: center; justify-content: space-between; gap: 3px; padding: 17px 16px 10px; }
