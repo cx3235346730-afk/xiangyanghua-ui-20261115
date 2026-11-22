@@ -12,16 +12,16 @@
     {id:'hot', label:'网红爆品', short:'网红爆品', image:['food.png',50,263,104,92]},
   ];
   const products = [
-    {id:'m1', category:'meat', name:'锡盟肚包肉（3号）', sub:'草原好味 · 冷链配送', price:'139.00', badge:'冷链', stock:'300', image:['category.png',227,536,231,231]},
-    {id:'f1', category:'food', name:'乐事薯片 混合口味', sub:'40g × 5袋 · 薄脆可口', price:'16.90', badge:'热销', stock:'120', image:['detail.png',100,154,535,535]},
-    {id:'m2', category:'meat', name:'羔羊半排骨（A级）', sub:'内蒙草原 · 精选好物', price:'179.00', badge:'冷链', stock:'参考库存', image:['category.png',535,536,231,231]},
-    {id:'f2', category:'food', name:'洽洽嘎吱脆薯片', sub:'35g × 6袋 · 休闲零食', price:'26.90', badge:'热销', stock:'参考库存', image:['food.png',535,536,231,231]},
-    {id:'p1', category:'pet', name:'熙讯木薯猫砂', sub:'植物混合 · 5kg 多规格', price:'15.90', badge:'热销', stock:'参考库存', image:['search.png',105,335,200,302]},
-    {id:'f3', category:'food', name:'葡萄干沙琪玛', sub:'良品铺子 · 500g', price:'15.90', badge:'新品', stock:'参考库存', image:['food.png',227,1137,204,204]},
-    {id:'p2', category:'pet', name:'实木猫窝 创意拼搭', sub:'温暖猫窝 · 趣味生活', price:'49.00', badge:'新品', stock:'参考库存', image:['home-lower-3.png',60,969,200,200]},
-    {id:'h1', category:'home', name:'四季亚麻拖鞋', sub:'软底静音 · 家居好物', price:'29.90', badge:'热销', stock:'参考库存', image:['home.png',90,620,610,350]},
-    {id:'m3', category:'meat', name:'苏尼特羊肚包肉（1号）', sub:'草原精选 · 冷链配送', price:'159.00', badge:'冷链', stock:'参考库存', image:['home-lower-2.png',58,46,204,172]},
-    {id:'p3', category:'pet', name:'智能宠物饮水机', sub:'无线不锈钢 · 宠物用品', price:'43.00', badge:'新品', stock:'参考库存', image:['home-lower-3.png',573,565,128,200]},
+    {id:'m1', category:'meat', name:'锡盟肚包肉（3号）', sub:'草原好味 · 冷链配送', price:'139.00', badge:'冷链', stock:'300', image:'ximeng-stuffed-tripe-studio.jpg'},
+    {id:'f1', category:'food', name:'乐事薯片 混合口味', sub:'40g × 5袋 · 薄脆可口', price:'16.90', badge:'热销', stock:'120', image:'lays-assorted-chips-studio.jpg'},
+    {id:'m2', category:'meat', name:'羔羊半排骨（A级）', sub:'内蒙草原 · 精选好物', price:'179.00', badge:'冷链', stock:'参考库存', image:'lamb-ribs-studio.jpg'},
+    {id:'f2', category:'food', name:'洽洽嘎吱脆薯片', sub:'35g × 6袋 · 休闲零食', price:'26.90', badge:'热销', stock:'参考库存', image:'qiaqia-crisps-studio.jpg'},
+    {id:'p1', category:'pet', name:'熙讯木薯猫砂', sub:'植物混合 · 5kg 多规格', price:'15.90', badge:'热销', stock:'参考库存', image:'cassava-cat-litter-studio.jpg'},
+    {id:'f3', category:'food', name:'葡萄干沙琪玛', sub:'良品铺子 · 500g', price:'15.90', badge:'新品', stock:'参考库存', image:'raisin-sachima-studio.jpg'},
+    {id:'p2', homeLabel:'店主推荐', category:'pet', name:'实木猫窝 创意拼搭', sub:'温暖猫窝 · 趣味生活', price:'49.00', badge:'新品', stock:'参考库存', image:'wooden-cat-house-studio.jpg'},
+    {id:'h1', homeLabel:'热销好物', category:'home', name:'四季亚麻拖鞋', sub:'软底静音 · 家居好物', price:'29.90', badge:'热销', stock:'参考库存', image:'linen-slippers-studio.jpg'},
+    {id:'m3', category:'meat', name:'苏尼特羊肚包肉（1号）', sub:'草原精选 · 冷链配送', price:'159.00', badge:'冷链', stock:'参考库存', image:'sunite-stuffed-tripe-studio.jpg'},
+    {id:'p3', category:'pet', name:'智能宠物饮水机', sub:'无线不锈钢 · 宠物用品', price:'43.00', badge:'新品', stock:'参考库存', image:'pet-water-fountain-studio.jpg'},
   ];
   const banners = [
     {image:'v1-warm-hero.png', title:['把日子过成','喜欢的样子'], subtitle:'精选生活好物', category:'food', button:'探索好物'},
@@ -38,6 +38,9 @@
   const esc = v => String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 
   const icons = {
+    star:'<path d="m12 2.5 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.3l6.5-.9Z"/>',
+    flame:'<path d="M12 2c.9 4.4 5.7 6.1 5.7 9.7 1.1-1.3 1.6-2.9 1.6-4.2 1.8 2.3 2.6 4.7 2.1 7.6A9.3 9.3 0 0 1 3 13.5c0-3.2 1.6-6.2 4.3-8.6-.3 2.7.4 4.7 1.8 5.9C9.5 7.2 12 5.8 12 2Z"/>',
+    bagPlus:'<path d="M13.5 20H5.2a1.7 1.7 0 0 1-1.7-1.7V7.4h15v6.1M7.5 8V5a3.5 3.5 0 0 1 7 0v3M18.5 15v7m-3.5-3.5h7"/>',
     home:'<path d="m4.5 10 7.5-6.2 7.5 6.2v8.8a1.5 1.5 0 0 1-1.5 1.5h-3.7v-5.9H9.7v5.9H6a1.5 1.5 0 0 1-1.5-1.5Z"/>',
     grid:'<rect x="3.1" y="3.1" width="7.1" height="7.1" rx="2"/><rect x="13.8" y="3.1" width="7.1" height="7.1" rx="2"/><rect x="3.1" y="13.8" width="7.1" height="7.1" rx="2"/><rect x="13.8" y="13.8" width="7.1" height="7.1" rx="2"/>',
     bag:'<rect x="4.5" y="7" width="15" height="13" rx="2"/><path d="M8.4 8V6.2a3.6 3.6 0 0 1 7.2 0V8"/>',
@@ -49,9 +52,8 @@
     box:'<path d="M3 8.5 12 4l9 4.5v10L12 23l-9-4.5z"/><path d="m3 8.5 9 4.5 9-4.5M12 13v10M7.5 6.3l9 4.5"/>',
   };
   function icon(name, extra='') { return `<svg class="icon ${extra}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`; }
-  function sprite(image, cls='') {
-    const [file,x,y,w,h] = image;
-    return `<img class="sprite ${cls}" src="./assets/crops/${esc(file.replace(/\.png$/, ''))}--${x}-${y}-${w}-${h}.jpg" style="object-fit:cover" alt="" aria-hidden="true">`;
+  function productPhoto(product) {
+    return `<img class="product-photo" src="./assets/products/${esc(product.image)}" width="1024" height="1024" alt="${esc(product.name)}" decoding="async">`;
   }
   function shopIcon(name) {
     const drawings = {
@@ -80,21 +82,37 @@
     return `<div class="section-heading"><h2>${esc(title)}</h2>${action?`<button class="section-link" type="button" data-action="${action}">${esc(right)} ›</button>`:`<span class="minor">${esc(right)}</span>`}</div>`;
   }
   function productCard(product) {
-    return `<article class="product-card"><button class="product-open" type="button" data-action="product" data-id="${product.id}" aria-label="查看${esc(product.name)}"><div class="product-image">${sprite(product.image)}</div><div class="product-body"><span class="product-name">${esc(product.name)}</span><span class="product-sub">${esc(product.sub)}</span></div></button><div class="product-bottom"><span class="price"><span class="currency">¥</span><span class="amount">${esc(product.price)}</span></span><button class="add-button" type="button" data-action="add" data-id="${product.id}" aria-label="将${esc(product.name)}加入购物车">+</button></div></article>`;
+    return `<article class="product-card"><button class="product-open" type="button" data-action="product" data-id="${product.id}" aria-label="查看${esc(product.name)}"><div class="product-image">${productPhoto(product)}</div><div class="product-body"><span class="product-name">${esc(product.name)}</span><span class="product-sub">${esc(product.sub)}</span></div></button><div class="product-bottom"><span class="price"><span class="currency">¥</span><span class="amount">${esc(product.price)}</span></span><button class="add-button" type="button" data-action="add" data-id="${product.id}" aria-label="将${esc(product.name)}加入购物车">+</button></div></article>`;
   }
   function warmCard(product) {
-    const favorite = state.favorites.includes(product.id);
-    const badge = product.id==='h1' ? {label:'店主推荐', style:'recommend', icon:'star'} : product.badge==='热销' ? {label:'热销好物', style:'hot', icon:'flame'} : product.badge==='新品' ? {label:'新品好物', style:'new', icon:'star'} : null;
-    return `<article class="warm-card"><button class="warm-card-image" type="button" data-action="product" data-id="${product.id}" aria-label="查看${esc(product.name)}">${sprite(product.image)}</button>${badge?`<span class="warm-card-badge is-${badge.style}"><img src="./assets/phosphor/${badge.icon}-fill.svg" alt="" aria-hidden="true">${badge.label}</span>`:''}<button class="warm-favorite ${favorite?'is-active':''}" type="button" data-action="favorite" data-id="${product.id}" aria-label="${favorite?'取消收藏':'收藏'}${esc(product.name)}" aria-pressed="${favorite}">${icon('heart')}</button><div class="warm-card-copy"><div class="warm-card-title">${esc(product.name)}</div><div class="warm-card-sub">${esc(product.sub)}</div><span class="warm-card-price"><small>¥</small>${esc(product.price)}</span><button class="warm-add" type="button" data-action="add" data-id="${product.id}" aria-label="将${esc(product.name)}加入购物车">${icon('bag')}<span aria-hidden="true">+</span></button></div></article>`;
+    const { id, name, sub, price, homeLabel } = product;
+    const favorite = state.favorites.includes(id);
+    const isHot = homeLabel === '热销好物';
+    const safeName = esc(name);
+    return `<article class="warm-card">
+      <button type="button" class="warm-card-open" data-action="product" data-id="${id}" aria-label="查看${safeName}">
+        <span class="warm-card-image">${productPhoto(product)}</span>
+        <span class="warm-card-copy">
+          <span class="warm-card-title">${safeName}</span>
+          <span class="warm-card-sub">${esc(sub)}</span>
+          <span class="warm-card-price"><small>¥</small>${esc(price)}</span>
+        </span>
+      </button>
+      ${homeLabel ? `<span class="warm-card-label${isHot ? ' is-hot' : ''}">
+        ${icon(isHot ? 'flame' : 'star')}${esc(homeLabel)}
+      </span>` : ''}
+      <button type="button" class="warm-favorite${favorite ? ' is-active' : ''}" data-action="favorite" data-id="${id}" aria-label="${favorite ? '取消收藏' : '收藏'}${safeName}" aria-pressed="${favorite}">${icon('heart')}</button>
+      <button type="button" class="warm-add" data-action="add" data-id="${id}" aria-label="将${safeName}加入购物车">${icon('bagPlus')}</button>
+    </article>`;
   }
   function renderHome() {
     const filters = [{id:'all',label:'全部'},{id:'meat',label:'鲜肉'},{id:'food',label:'食品'},{id:'home',label:'家居'},{id:'pet',label:'宠物'}];
     const order = ['h1','p2','m1','f1','m2','f2','p1','f3','m3','p3'];
     const arranged = order.map(id=>products.find(product=>product.id===id)).filter(Boolean);
     const shown = state.homeFilter === 'all' ? arranged : arranged.filter(product=>product.category===state.homeFilter);
-    return `<header class="home-header warm-header">${statusBar()}<div class="warm-topbar"><div class="warm-identity"><img class="warm-avatar" src="./assets/v1-warm-avatar.png" alt=""><div><div class="warm-shop-name"><span>向阳花</span><span class="warm-shop-accent">随心选</span></div><div class="warm-shop-sub">用心挑选，分享日常</div></div></div><div class="warm-header-actions"><button type="button" data-action="search" aria-label="搜索商品">${icon('search')}</button><button class="warm-header-bag" type="button" data-action="report" aria-label="购物车">${icon('bag')}${state.report.length?`<span>${state.report.length}</span>`:''}</button></div></div></header>
+    return `<header class="home-header warm-header">${statusBar()}<div class="warm-topbar"><div class="warm-identity"><img class="warm-avatar" src="./assets/v1-warm-avatar.png" alt=""><div><div class="warm-shop-name"><span>向阳花</span><span class="warm-shop-accent">随心选</span><span class="warm-shop-badge"><svg viewBox="0 0 20 16" aria-hidden="true"><path d="M2.1 5.1 5.3 7.4 10 1.8l4.7 5.6 3.2-2.3-1.4 8.5H3.5Z"/></svg><span>优选小铺</span></span></div><div class="warm-shop-sub">用心挑选，分享日常</div></div></div><div class="warm-header-actions"><button type="button" data-action="search" aria-label="搜索商品">${icon('search')}</button><button class="warm-header-bag" type="button" data-action="report" aria-label="购物车">${icon('bag')}${state.report.length?`<span>${state.report.length}</span>`:''}</button></div></div></header>
       <div class="home-body warm-body"><section class="warm-hero" aria-label="首页海报轮播" aria-roledescription="轮播">
-      ${banners.map((banner,index)=>`<div class="warm-slide" role="group" aria-roledescription="海报" aria-label="${index+1} / ${banners.length}" ${index===state.heroSlide?'':'hidden'}><img src="./assets/${banner.image}" alt="" class="warm-hero-image"><div class="warm-hero-copy"><h1>${banner.title.map(esc).join('<br>')}</h1><p>${esc(banner.subtitle)}</p><button type="button" data-action="category" data-id="${banner.category}">${esc(banner.button)} <span aria-hidden="true">→</span></button></div></div>`).join('')}
+      ${banners.map((banner,index)=>`<div class="warm-slide" role="group" aria-roledescription="海报" aria-label="${index+1} / ${banners.length}" ${index===state.heroSlide?'':'hidden'}><img src="./assets/${banner.image}" alt="" class="warm-hero-image"><div class="warm-hero-copy"><h1>${banner.title.map(esc).join('<br>')}</h1><p>${esc(banner.subtitle)}</p><button type="button" data-action="category" data-id="${banner.category}">${esc(banner.button)}</button></div></div>`).join('')}
       <div class="warm-carousel-dots" role="group" aria-label="切换海报">${banners.map((banner,index)=>`<button type="button" class="warm-carousel-dot ${index===state.heroSlide?'is-active':''}" data-action="hero-slide" data-index="${index}" aria-label="第 ${index+1} 张海报：${esc(banner.title.join('，'))}" aria-current="${index===state.heroSlide}"></button>`).join('')}</div></section>
       <div class="warm-filters" aria-label="筛选商品">${filters.map(item=>`<button type="button" class="warm-filter ${item.id===state.homeFilter?'is-active':''}" data-action="home-filter" data-id="${item.id}" aria-pressed="${item.id===state.homeFilter}">${esc(item.label)}</button>`).join('')}</div>
       <section class="warm-selection" aria-label="店主精选"><div class="warm-section-heading"><h2>店主精选</h2><button type="button" data-action="category" data-id="food">查看全部 <span aria-hidden="true">→</span></button></div><div class="warm-grid">${shown.map(warmCard).join('')}</div></section>
@@ -112,11 +130,11 @@
   }
   function renderDetail() {
     const p = products.find(item=>item.id===state.product) || products[0];
-    return `${pageHeader('商品详情',true)}<div class="detail-content"><div class="detail-image">${sprite(p.image)}</div><section class="detail-panel"><h1>${esc(p.name)}</h1><p class="detail-description">${esc(p.sub)}</p><div class="detail-price price"><span class="currency">¥</span><span class="amount">${esc(p.price)}</span></div><div class="detail-stats"><span>商品信息与价格仅供参考</span></div></section><section class="detail-panel"><h1 style="font-size:16px">商品详情</h1><p class="detail-description">${esc(p.sub)}。把喜欢的好物加入购物车，慢慢挑选。</p></section></div>`;
+    return `${pageHeader('商品详情',true)}<div class="detail-content"><div class="detail-image">${productPhoto(p)}</div><section class="detail-panel"><h1>${esc(p.name)}</h1><p class="detail-description">${esc(p.sub)}</p><div class="detail-price price"><span class="currency">¥</span><span class="amount">${esc(p.price)}</span></div><div class="detail-stats"><span>商品信息与价格仅供参考</span></div></section><section class="detail-panel"><h1 style="font-size:16px">商品详情</h1><p class="detail-description">${esc(p.sub)}。把喜欢的好物加入购物车，慢慢挑选。</p></section></div>`;
   }
   function renderReport() {
     const selected = state.report.map(id=>products.find(p=>p.id===id)).filter(Boolean);
-    const content = selected.length ? `<div class="report-card">${selected.map(p=>`<div class="report-item"><div class="product-image">${sprite(p.image)}</div><div><p class="report-name">${esc(p.name)}</p><span class="report-price">¥${esc(p.price)}</span></div><button class="remove-button" type="button" data-action="remove" data-id="${p.id}">移除</button></div>`).join('')}</div><div class="info-strip"><div><strong>喜欢的好物，都在这里</strong><span>商品信息与价格仅供参考</span></div><button type="button" data-action="guide">了解小店</button></div>` : `<div class="report-card empty-report"><div class="empty-icon">${icon('cart')}</div><h2>购物车还是空的</h2><p>去小店挑选一些喜欢的好物吧</p><button class="wide-button" type="button" data-action="category" data-id="food">去逛逛</button></div>`;
+    const content = selected.length ? `<div class="report-card">${selected.map(p=>`<div class="report-item"><div class="product-image">${productPhoto(p)}</div><div><p class="report-name">${esc(p.name)}</p><span class="report-price">¥${esc(p.price)}</span></div><button class="remove-button" type="button" data-action="remove" data-id="${p.id}">移除</button></div>`).join('')}</div><div class="info-strip"><div><strong>喜欢的好物，都在这里</strong><span>商品信息与价格仅供参考</span></div><button type="button" data-action="guide">了解小店</button></div>` : `<div class="report-card empty-report"><div class="empty-icon">${icon('cart')}</div><h2>购物车还是空的</h2><p>去小店挑选一些喜欢的好物吧</p><button class="wide-button" type="button" data-action="category" data-id="food">去逛逛</button></div>`;
     return `${pageHeader('购物车')}<div class="page-content">${content}</div>`;
   }
   function renderMy() {

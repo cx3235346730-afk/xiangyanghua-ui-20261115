@@ -15,9 +15,11 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 67px; padding: 5px 0 10px; }
 .warm-identity { display: flex; align-items: center; gap: 11px; min-width: 0; }
 .warm-avatar { flex: none; width: 49px; height: 49px; border-radius: 50%; object-fit: cover; object-position: center 28%; background: #eae1d7; }
-.warm-shop-name { display: flex; align-items: baseline; gap: 3px; color: #362820; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 20px; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
-.warm-shop-accent { color: #a27c5d; font-family: 'Shop Accent', 'Kaiti SC', 'STKaiti', serif; font-size: .9em; font-weight: 400; letter-spacing: .03em; }
-.warm-shop-sub { margin-top: 4px; color: #827066; font-size: 12px; letter-spacing: .08em; white-space: nowrap; }
+.warm-shop-name { display: flex; align-items: baseline; gap: 3px; color: #000; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 20px; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+.warm-shop-accent { color: #987454; font-family: 'Shop Accent', 'Kaiti SC', 'STKaiti', serif; font-size: .9em; font-weight: 400; letter-spacing: .03em; }
+.warm-shop-badge { display: inline-flex; flex: none; align-items: center; align-self: center; gap: 3px; margin-left: 2px; padding: 4px 7px; border-radius: 999px; background: linear-gradient(100deg, #f9e1bd, #e8b97d); box-shadow: inset 0 1px 1px #fff9; color: #000; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; font-size: 12px; font-weight: 600; line-height: 1; letter-spacing: 0; }
+.warm-shop-badge svg { display: block; flex: none; width: 14px; height: 11px; fill: #a46b2f; }
+.warm-shop-sub { margin-top: 4px; color: #000; font-size: 12px; letter-spacing: .08em; white-space: nowrap; }
 .warm-header-actions { display: flex; align-items: center; gap: 12px; }
 .warm-header-actions button { position: relative; display: grid; place-items: center; width: 29px; height: 35px; padding: 0; background: transparent; color: #473327; }
 .warm-header-actions .icon { width: 24px; height: 24px; stroke-width: 1.5; }
@@ -27,12 +29,12 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-slide { position: absolute; inset: 0; animation: warm-hero-fade .35s ease both; }
 .warm-slide[hidden] { display: none; }
 .warm-hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.warm-slide::after { position: absolute; inset: 0; content: ''; pointer-events: none; background: linear-gradient(90deg, #f5ece6b8, #f7eee94a 47%, transparent 75%); }
-.warm-hero-copy { position: relative; z-index: 1; padding: 29px 23px; color: #000; }
-.warm-hero h1 { margin: 0; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 27px; font-weight: 700; line-height: 1.35; letter-spacing: .07em; }
-.warm-hero p { margin: 11px 0 16px; color: #000; font-size: 14px; letter-spacing: .12em; }
-.warm-hero-copy button { min-height: 32px; padding: 0 14px; border: 1px solid #98765a; border-radius: 18px; background: #fbf7f1aa; color: #000; font-size: 13px; }
-.warm-hero-copy button span { margin-left: 6px; font-size: 17px; }
+.warm-slide::after { position: absolute; inset: 0; content: ''; pointer-events: none; background: linear-gradient(90deg, #f8eee8ec 0%, #f8eee8c7 36%, #f8eee83d 61%, transparent 78%); }
+.warm-hero-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: 52%; padding: 24px 10px 0 15px; color: #000; text-align: center; }
+.warm-hero h1 { width: 100%; margin: 0; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 29px; font-weight: 700; line-height: 1.3; letter-spacing: .04em; }
+.warm-hero h1::after { display: block; width: 88%; height: 9px; margin: 1px auto 0; border-bottom: 2px solid #c7854b; border-radius: 0 0 50% 50%; content: ''; transform: rotate(-1deg); }
+.warm-hero p { margin: 10px 0 13px; color: #000; font-size: 13px; line-height: 1.4; letter-spacing: .07em; white-space: nowrap; }
+.warm-hero-copy button { min-height: 36px; padding: 0 23px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #c98b4f, #aa642b); box-shadow: 0 3px 7px #8f572927; color: #fff; font-size: 14px; font-weight: 600; letter-spacing: .05em; }
 .warm-carousel-dots { position: absolute; z-index: 2; bottom: 3px; left: 50%; display: flex; gap: 0; transform: translateX(-50%); }
 .warm-carousel-dot { position: relative; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; }
 .warm-carousel-dot::before { width: 6px; height: 6px; border-radius: 8px; background: #a98f7b; content: ''; box-shadow: 0 0 0 1px #fff8; transition: width .2s ease, background .2s ease; }
@@ -47,24 +49,52 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-section-heading h2 { margin: 0; color: #000; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 22px; font-weight: 700; letter-spacing: .04em; }
 .warm-section-heading button { padding: 6px 0; background: transparent; color: #000; font-size: 13px; }
 .warm-section-heading button span { padding-left: 3px; font-size: 16px; }
-.warm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px 12px; }
-.warm-card { position: relative; min-width: 0; overflow: hidden; border: 1px solid #eee5dd; border-radius: 12px; background: #fffdfa; box-shadow: 0 3px 12px #78563a0c; }
-.warm-card-image { display: block; width: 100%; aspect-ratio: 1.27; overflow: hidden; padding: 0; border-radius: 11px; background: #f0e6dc; }
-.warm-card-image .sprite { width: 100%; height: 100%; }
-.warm-card-badge { position: absolute; top: 9px; left: 9px; display: inline-flex; align-items: center; gap: 3px; min-height: 21px; max-width: calc(100% - 54px); padding: 2px 8px 2px 6px; overflow: hidden; border: 1px solid #ffffffb3; border-radius: 13px; background: #d28b32; color: #fffdfa; font-size: 11px; font-weight: 600; line-height: 1.1; white-space: nowrap; pointer-events: none; }
-.warm-card-badge.is-hot, .warm-card-badge.is-new { background: #bf4a32; }
-.warm-card-badge img { flex: none; width: 12px; height: 12px; filter: brightness(0) invert(1); }
-.warm-favorite { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 30px; height: 30px; padding: 0; background: #fffaf4d9; border-radius: 50%; color: #513b2e; }
-.warm-favorite .icon { width: 23px; height: 23px; stroke-width: 1.5; }
-.warm-favorite.is-active .icon { fill: #ad8569; color: #8b6248; }
-.warm-card-copy { position: relative; min-height: 70px; padding: 6px 11px 7px; }
-.warm-card-title { display: -webkit-box; min-height: 18px; overflow: hidden; color: #30251e; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 16px; font-weight: 700; line-height: 18px; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
-.warm-card-sub { overflow: hidden; margin-top: 2px; color: #81776f; font-size: 11px; line-height: 13px; text-overflow: ellipsis; white-space: nowrap; }
-.warm-card-price { display: block; margin-top: 3px; padding-right: 40px; color: #d66e1d; font-family: Georgia, 'Songti SC', serif; font-size: 20px; line-height: 1; white-space: nowrap; }
-.warm-card-price small { margin-right: 2px; font-size: 13px; }
-.warm-add { position: absolute; right: 9px; bottom: 9px; display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid #d4c58a; border-radius: 50%; background: #faf6e8; color: #554d30; }
-.warm-add .icon { width: 19px; height: 19px; stroke-width: 1.5; }
-.warm-add span { position: absolute; right: 5px; bottom: 3px; padding: 0 1px; background: #faf6e8; color: #554d30; font-size: 11px; line-height: 1; }
+.warm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; }
+.warm-card {
+  position: relative;
+  min-width: 0;
+  border-radius: 12px;
+  background: #fffcf9;
+  box-shadow: inset 0 0 0 1px #eee3d9, 0 3px 9px #6c44200b;
+}
+.warm-card-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border-radius: inherit;
+  background: transparent;
+  text-align: left;
+}
+.warm-card-image { display: block; width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: 12px; background: #f0e6dc; }
+.warm-card-label {
+  position: absolute;
+  inset: 9px auto auto 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 7px;
+  border: 1px solid #fff9;
+  border-radius: 999px;
+  background: #ad6a20;
+  color: #fff;
+  font: 600 11px/1.15 -apple-system, 'PingFang SC', sans-serif;
+  pointer-events: none;
+}
+.warm-card-label.is-hot { background: #b64a27; }
+.warm-card-label .icon { width: 11px; height: 11px; fill: currentColor; stroke-width: .8; }
+.warm-favorite, .warm-add { position: absolute; display: grid; place-items: center; padding: 0; background: transparent; }
+.warm-favorite { top: 7px; right: 7px; width: 30px; height: 30px; color: #30261f; }
+.warm-favorite .icon { width: 19px; height: 19px; stroke-width: 1.7; }
+.warm-favorite.is-active { color: #b3492c; }
+.warm-favorite.is-active .icon { fill: currentColor; }
+.warm-card-copy { display: block; padding: 8px 12px 10px; }
+.warm-card-title, .warm-card-sub { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.warm-card-title { color: #000; font: 700 16px/1.4 'Songti SC', 'Noto Serif SC', 'STSong', serif; }
+.warm-card-sub { margin: 1px 31px 0 0; color: #68645e; font: 12px/1.5 'Songti SC', 'Noto Serif SC', 'STSong', serif; }
+.warm-card-price { display: block; margin-top: 3px; padding-right: 36px; color: #bd570e; font-size: 22px; font-weight: 500; line-height: 1.12; font-variant-numeric: tabular-nums; }
+.warm-card-price small { margin-right: 2px; font-size: .65em; }
+.warm-add { right: 10px; bottom: 12px; width: 32px; height: 32px; color: #565326; }
+.warm-add .icon { width: 19px; height: 19px; stroke-width: 1.6; }
 .warm-about { display: flex; align-items: center; gap: 10px; margin: 24px 14px 0; padding: 16px 13px; border: 1px solid #eee5dc; border-radius: 8px; background: #f7f1eb; }
 .warm-about > span { display: grid; place-items: center; flex: none; width: 39px; height: 39px; border: 1px solid #dfd0c1; border-radius: 50%; color: #a18268; }
 .warm-about svg { width: 27px; height: 27px; }
@@ -102,6 +132,16 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .info-strip span { color: #a99788; }
 .detail-actions .secondary { background: #f4ece4; color: #000; }
 .profile-overlay { background: linear-gradient(#3e29160c, #38291c9c); }
+@media (max-width: 400px) {
+  .warm-topbar { gap: 7px; }
+  .warm-avatar { width: 44px; height: 44px; }
+  .warm-identity { gap: 7px; }
+  .warm-shop-name { font-size: 18px; }
+  .warm-shop-badge { gap: 2px; margin-left: 1px; padding: 3px 5px; font-size: 11px; }
+  .warm-shop-badge svg { width: 11px; height: 10px; }
+  .warm-header-actions { gap: 4px; }
+  .warm-header-actions button { width: 27px; }
+}
 @media (max-width: 350px) {
   .warm-header { padding-inline: 10px; }
   .warm-header .status-bar { margin-inline: -10px; }
@@ -111,9 +151,11 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
   .warm-shop-sub { font-size: 11px; }
   .warm-header-actions { gap: 5px; }
   .warm-hero { height: 205px; }
-  .warm-hero-copy { padding: 25px 18px; }
-  .warm-hero h1 { font-size: 23px; }
-  .warm-hero p { font-size: 12px; }
+  .warm-hero-copy { width: 54%; padding: 21px 6px 0 10px; }
+  .warm-hero h1 { font-size: 24px; }
+  .warm-hero p { margin: 8px 0 10px; font-size: 11px; }
+  .warm-hero-copy button { min-height: 33px; padding-inline: 17px; font-size: 13px; }
   .warm-filter { padding: 0 5px; font-size: 13px; }
-  .warm-card-title { font-size: 13px; }
+  .warm-card-copy { padding-inline: 9px; }
+  .warm-card-title { font-size: 15px; }
 }
