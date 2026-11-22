@@ -23,11 +23,18 @@
     {id:'m3', category:'meat', name:'苏尼特羊肚包肉（1号）', sub:'草原精选 · 冷链配送', price:'159.00', badge:'冷链', stock:'参考库存', image:['home-lower-2.png',58,46,204,172]},
     {id:'p3', category:'pet', name:'智能宠物饮水机', sub:'无线不锈钢 · 宠物用品', price:'43.00', badge:'新品', stock:'参考库存', image:['home-lower-3.png',573,565,128,200]},
   ];
-  const state = {route:'home', category:'food', query:'', product:null, previous:'home', report:[], homeFilter:'all', favorites:[]};
+  const banners = [
+    {image:'v1-warm-hero.png', title:['把日子过成','喜欢的样子'], subtitle:'精选生活好物', category:'food', button:'探索好物'},
+    {image:'v1-banner-meat.png', title:['一日三餐','认真对待'], subtitle:'鲜肉专区 · 用心挑选', category:'meat', button:'探索鲜肉'},
+    {image:'v1-banner-home.png', title:['日常好物','慢慢挑选'], subtitle:'家居百货 · 温柔日常', category:'home', button:'探索家居'},
+  ];
+  const state = {route:'home', category:'food', query:'', product:null, previous:'home', report:[], homeFilter:'all', favorites:[], heroSlide:0};
   const screen = document.getElementById('screen');
   const nav = document.getElementById('bottom-nav');
   const toast = document.getElementById('toast');
   let toastTimer;
+  let carouselTimer;
+  let touchStart;
   const esc = v => String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 
   const icons = {
@@ -85,7 +92,9 @@
     const arranged = order.map(id=>products.find(product=>product.id===id)).filter(Boolean);
     const shown = state.homeFilter === 'all' ? arranged : arranged.filter(product=>product.category===state.homeFilter);
     return `<header class="home-header warm-header">${statusBar()}<div class="warm-topbar"><div class="warm-identity"><img class="warm-avatar" src="./assets/v1-warm-avatar.png" alt=""><div><div class="warm-shop-name"><span>向阳花</span><span class="warm-shop-accent">随心选</span></div><div class="warm-shop-sub">用心挑选，分享日常</div></div></div><div class="warm-header-actions"><button type="button" data-action="search" aria-label="搜索商品">${icon('search')}</button><button class="warm-header-bag" type="button" data-action="report" aria-label="购物车">${icon('bag')}${state.report.length?`<span>${state.report.length}</span>`:''}</button></div></div></header>
-      <div class="home-body warm-body"><section class="warm-hero"><img src="./assets/v1-warm-hero.png" alt="" class="warm-hero-image"><div class="warm-hero-copy"><h1>把日子过成<br>喜欢的样子</h1><p>精选生活好物</p><button type="button" data-action="category" data-id="food">探索好物 <span aria-hidden="true">→</span></button></div></section>
+      <div class="home-body warm-body"><section class="warm-hero" aria-label="首页海报轮播" aria-roledescription="轮播">
+      ${banners.map((banner,index)=>`<div class="warm-slide" role="group" aria-roledescription="海报" aria-label="${index+1} / ${banners.length}" ${index===state.heroSlide?'':'hidden'}><img src="./assets/${banner.image}" alt="" class="warm-hero-image"><div class="warm-hero-copy"><h1>${banner.title.map(esc).join('<br>')}</h1><p>${esc(banner.subtitle)}</p><button type="button" data-action="category" data-id="${banner.category}">${esc(banner.button)} <span aria-hidden="true">→</span></button></div></div>`).join('')}
+      <div class="warm-carousel-dots" role="group" aria-label="切换海报">${banners.map((banner,index)=>`<button type="button" class="warm-carousel-dot ${index===state.heroSlide?'is-active':''}" data-action="hero-slide" data-index="${index}" aria-label="第 ${index+1} 张海报：${esc(banner.title.join('，'))}" aria-current="${index===state.heroSlide}"></button>`).join('')}</div></section>
       <div class="warm-filters" aria-label="筛选商品">${filters.map(item=>`<button type="button" class="warm-filter ${item.id===state.homeFilter?'is-active':''}" data-action="home-filter" data-id="${item.id}" aria-pressed="${item.id===state.homeFilter}">${esc(item.label)}</button>`).join('')}</div>
       <section class="warm-selection" aria-label="店主精选"><div class="warm-section-heading"><h2>店主精选</h2><button type="button" data-action="category" data-id="food">查看全部 <span aria-hidden="true">→</span></button></div><div class="warm-grid">${shown.map(warmCard).join('')}</div></section>
       <div class="warm-about"><span>${shopMark()}</span><div><strong>用心挑选，分享日常</strong><p>把喜欢的好物，慢慢分享给你。</p></div><button type="button" data-action="guide">关于小店</button></div><div class="end-note">THANK YOU FOR STOPPING BY</div></div>`;
@@ -127,10 +136,31 @@
     nav.innerHTML=entries.map(([route,label,iconName])=>`<button type="button" class="nav-item ${route===current?'is-active':''}" data-action="${route}" ${route===current?'aria-current="page"':''}>${icon(iconName,'nav-icon-'+route)}${route==='report'&&state.report.length?`<span class="nav-count">${state.report.length}</span>`:''}<span>${label}</span></button>`).join('');
   }
   function render(reset=true) {
+    clearInterval(carouselTimer);
     const pages={home:renderHome,category:renderCategory,search:renderSearch,detail:renderDetail,report:renderReport,my:renderMy,guide:renderGuide};
     screen.innerHTML=(pages[state.route]||renderHome)();
     renderNav();
     if(reset) screen.scrollTop=0;
+    if(state.route==='home') startHeroCarousel();
+  }
+  function showHeroSlide(index) {
+    state.heroSlide=(index+banners.length)%banners.length;
+    const hero=screen.querySelector('.warm-hero');
+    if(!hero) return;
+    hero.querySelectorAll('.warm-slide').forEach((slide,i)=>{ slide.hidden=i!==state.heroSlide; });
+    hero.querySelectorAll('.warm-carousel-dot').forEach((dot,i)=>{
+      dot.classList.toggle('is-active',i===state.heroSlide);
+      dot.setAttribute('aria-current',String(i===state.heroSlide));
+    });
+  }
+  function startHeroCarousel() {
+    clearInterval(carouselTimer);
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    carouselTimer=setInterval(()=>{
+      const hero=screen.querySelector('.warm-hero');
+      if(!hero || document.hidden || (window.matchMedia('(hover: hover)').matches && hero.matches(':hover')) || (hero.contains(document.activeElement) && document.activeElement.matches(':focus-visible'))) return;
+      showHeroSlide(state.heroSlide+1);
+    },6000);
   }
   function setRoute(route) { state.route=route; render(); }
   function notify(message) { clearTimeout(toastTimer); toast.textContent=message; toast.classList.add('show'); toastTimer=setTimeout(()=>toast.classList.remove('show'),1800); }
@@ -143,6 +173,7 @@
     const button=event.target.closest('[data-action]');
     if(!button) return;
     const action=button.dataset.action, id=button.dataset.id;
+    if(action==='hero-slide') { showHeroSlide(Number(button.dataset.index)); startHeroCarousel(); return; }
     if(action==='home') return setRoute('home');
     if(action==='search') return setRoute('search');
     if(action==='home-filter') { state.homeFilter=id || 'all'; return render(false); }
@@ -163,5 +194,19 @@
     state.query=new FormData(event.target).get('query').toString();
     setRoute('search');
   });
+  screen.addEventListener('touchstart', event=>{
+    touchStart=event.target.closest('.warm-hero') && event.touches.length===1 ? {x:event.touches[0].clientX,y:event.touches[0].clientY} : null;
+  },{passive:true});
+  screen.addEventListener('touchend', event=>{
+    if(!touchStart || !event.changedTouches.length) return;
+    const dx=event.changedTouches[0].clientX-touchStart.x;
+    const dy=event.changedTouches[0].clientY-touchStart.y;
+    touchStart=null;
+    if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.2) {
+      showHeroSlide(state.heroSlide+(dx<0?1:-1));
+      startHeroCarousel();
+    }
+  },{passive:true});
+  screen.addEventListener('touchcancel',()=>{ touchStart=null; },{passive:true});
   render();
 })();

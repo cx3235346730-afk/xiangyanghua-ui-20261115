@@ -1,3 +1,4 @@
+@font-face { font-family: 'Shop Accent'; src: url('./assets/v1-accent.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
 :root {
   --green: #a37f5e;
   --soft-green: #f4ede7;
@@ -15,21 +16,29 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-identity { display: flex; align-items: center; gap: 11px; min-width: 0; }
 .warm-avatar { flex: none; width: 49px; height: 49px; border-radius: 50%; object-fit: cover; object-position: center 28%; background: #eae1d7; }
 .warm-shop-name { display: flex; align-items: baseline; gap: 3px; color: #38281f; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 20px; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
-.warm-shop-accent { color: #9b7150; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; font-size: 1.1em; font-weight: 800; letter-spacing: .02em; }
+.warm-shop-accent { color: #987454; font-family: 'Shop Accent', 'Kaiti SC', 'STKaiti', serif; font-size: .9em; font-weight: 400; letter-spacing: .03em; }
 .warm-shop-sub { margin-top: 4px; color: #806d60; font-size: 12px; letter-spacing: .08em; white-space: nowrap; }
 .warm-header-actions { display: flex; align-items: center; gap: 12px; }
 .warm-header-actions button { position: relative; display: grid; place-items: center; width: 29px; height: 35px; padding: 0; background: transparent; color: #473327; }
 .warm-header-actions .icon { width: 24px; height: 24px; stroke-width: 1.5; }
 .warm-header-bag > span { position: absolute; top: 0; right: -4px; display: grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; background: #a37f5e; color: white; font-size: 9px; }
 .warm-body { padding: 0 0 28px; background: #faf7f4; }
-.warm-hero { position: relative; height: 235px; overflow: hidden; background: #eee3da; }
+.warm-hero { position: relative; height: 235px; overflow: hidden; background: #eee3da; touch-action: pan-y; }
+.warm-slide { position: absolute; inset: 0; animation: warm-hero-fade .35s ease both; }
+.warm-slide[hidden] { display: none; }
 .warm-hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.warm-hero::after { position: absolute; inset: 0; content: ''; background: linear-gradient(90deg, #f5ece6b8, #f7eee94a 47%, transparent 75%); }
+.warm-slide::after { position: absolute; inset: 0; content: ''; pointer-events: none; background: linear-gradient(90deg, #f5ece6b8, #f7eee94a 47%, transparent 75%); }
 .warm-hero-copy { position: relative; z-index: 1; padding: 29px 23px; color: #4c3627; }
 .warm-hero h1 { margin: 0; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 27px; font-weight: 700; line-height: 1.35; letter-spacing: .07em; }
 .warm-hero p { margin: 11px 0 16px; color: #715d4e; font-size: 14px; letter-spacing: .12em; }
-.warm-hero button { min-height: 32px; padding: 0 14px; border: 1px solid #98765a; border-radius: 18px; background: #fbf7f1aa; color: #5a4030; font-size: 13px; }
-.warm-hero button span { margin-left: 6px; font-size: 17px; }
+.warm-hero-copy button { min-height: 32px; padding: 0 14px; border: 1px solid #98765a; border-radius: 18px; background: #fbf7f1aa; color: #5a4030; font-size: 13px; }
+.warm-hero-copy button span { margin-left: 6px; font-size: 17px; }
+.warm-carousel-dots { position: absolute; z-index: 2; bottom: 3px; left: 50%; display: flex; gap: 0; transform: translateX(-50%); }
+.warm-carousel-dot { position: relative; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; }
+.warm-carousel-dot::before { width: 6px; height: 6px; border-radius: 8px; background: #a98f7b; content: ''; box-shadow: 0 0 0 1px #fff8; transition: width .2s ease, background .2s ease; }
+.warm-carousel-dot.is-active::before { width: 15px; background: #74553c; }
+@keyframes warm-hero-fade { from { opacity: .65; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .warm-slide { animation: none; } .warm-carousel-dot::before { transition: none; } }
 .warm-filters { display: flex; align-items: center; justify-content: space-between; gap: 3px; padding: 17px 16px 10px; }
 .warm-filter { flex: 1; min-width: 0; min-height: 32px; padding: 0 8px; border-radius: 18px; background: transparent; color: #534137; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 15px; white-space: nowrap; }
 .warm-filter.is-active { background: #a68666; color: #fff; }
