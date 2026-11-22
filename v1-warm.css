@@ -14,7 +14,8 @@ button:focus-visible, input:focus-visible, .screen:focus-visible { outline-color
 .warm-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 67px; padding: 5px 0 10px; }
 .warm-identity { display: flex; align-items: center; gap: 11px; min-width: 0; }
 .warm-avatar { flex: none; width: 49px; height: 49px; border-radius: 50%; object-fit: cover; object-position: center 28%; background: #eae1d7; }
-.warm-shop-name { color: #38281f; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 20px; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+.warm-shop-name { display: flex; align-items: baseline; gap: 3px; color: #38281f; font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif; font-size: 20px; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+.warm-shop-accent { color: #9b7150; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; font-size: 1.1em; font-weight: 800; letter-spacing: .02em; }
 .warm-shop-sub { margin-top: 4px; color: #806d60; font-size: 12px; letter-spacing: .08em; white-space: nowrap; }
 .warm-header-actions { display: flex; align-items: center; gap: 12px; }
 .warm-header-actions button { position: relative; display: grid; place-items: center; width: 29px; height: 35px; padding: 0; background: transparent; color: #473327; }
