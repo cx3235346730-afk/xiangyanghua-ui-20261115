@@ -6,3 +6,19 @@
   background: #fff;
 }
 .product-photo[data-src] { visibility: hidden; }
+
+.price,
+.report-price,
+.warm-card-price,
+.mini-promo-price,
+.pdd-shelf-price,
+.showcase-price {
+  color: #c92330;
+  font-weight: 800;
+}
+
+.mini-promo-price b,
+.pdd-shelf-price b,
+.showcase-price strong {
+  font-weight: inherit;
+}
